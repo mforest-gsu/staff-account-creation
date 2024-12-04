@@ -1,0 +1,48 @@
+#!/bin/bash
+
+cd $(dirname $(dirname ${BASH_SOURCE[0]}))
+
+source .env || exit 1
+
+if [ -f ".env.local" ]
+then
+  source .env.local || exit 1
+fi
+
+if [ -n "${APP_ENV}" ]
+then
+  if [ -f ".env.${APP_ENV}" ]
+  then
+    source ".env.${APP_ENV}" || exit 1
+  fi
+
+  if [ -f ".env.${APP_ENV}.local" ]
+  then
+    source ".env.${APP_ENV}.local" || exit 1
+  fi
+fi
+
+if [ -d "./var" ]
+then
+  find ./var -type f -mtime +60 -delete
+fi
+
+mkdir -p ./var/${IPSIS_ZIP}
+
+cp ./src/manifest.json ./var/${IPSIS_ZIP}
+
+sqlplus \
+  -F -L -S \
+  /@${DB_NAME} \
+  @./src/BuildUsersCSVFile.sql \
+  ./var/${IPSIS_ZIP}/${USERS_FILE}
+
+zip -j ./var/${IPSIS_ZIP}.zip ./var/${IPSIS_ZIP}/*
+
+# scp \
+#   -s \
+#   -o IdentityFile=~/.ssh/dle_gsu_edu \
+#   ${IPSIS_ZIP} \
+#   ${SCP_HOST}:"${SCP_PATH}"
+
+exit
