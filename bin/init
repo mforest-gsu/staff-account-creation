@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export APP_DIR=$(dirname $(dirname ${BASH_SOURCE[0]}))
+cd ${APP_DIR}
+
+source ${APP_DIR}/.env || exit 1
+
+if [ -f "${APP_DIR}/.env.local" ]
+then
+  source ${APP_DIR}/.env.local || exit 1
+fi
+
+exit 0

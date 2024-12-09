@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Set current dir to the app dir and load .env files
+source $(dirname ${BASH_SOURCE[0]})/init || exit 1
+
+# Upload zip file to MoveIt
+scp \
+  -s \
+  -o IdentityFile=~/.ssh/dle_gsu_edu \
+  ${IPSIS_ZIP} \
+  ${SCP_HOST}:"${SCP_PATH}"
+
+exit 0

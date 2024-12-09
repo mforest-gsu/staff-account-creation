@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Set current dir to the app dir and load .env files
+source $(dirname ${BASH_SOURCE[0]})/init || exit 1
+
+# Create dir for zip files
+mkdir -p ./var/${IPSIS_ZIP}
+
+# Add manifest
+cp ./src/manifest.json ./var/${IPSIS_ZIP}
+
+# Create users CSV
+sqlplus \
+  -F -L -S \
+  /@${DB_NAME} \
+  @./src/BuildUsersCSVFile.sql \
+  ./var/${IPSIS_ZIP}/${USERS_FILE}
+
+# Create zip
+zip -j ./var/${IPSIS_ZIP}.zip ./var/${IPSIS_ZIP}/*
+
+exit 0
