@@ -8,4 +8,4 @@ then
   find ./var -type f -mtime +60 -delete
 fi
 
-exit 0 
+exit 0

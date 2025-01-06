@@ -3,6 +3,8 @@
 # Set current dir to the app dir and load .env files
 source $(dirname ${BASH_SOURCE[0]})/init || exit 1
 
+[ -n "${IPSIS_ZIP}" ] || exit 1
+
 # Create dir for zip files
 mkdir -p ./var/${IPSIS_ZIP}
 

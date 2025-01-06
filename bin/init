@@ -10,4 +10,5 @@ then
   source ${APP_DIR}/.env.local || exit 1
 fi
 
-exit 0
+IPSIS_ZIP=$1
+USERS_FILE="07-Users-${DATE}.csv"

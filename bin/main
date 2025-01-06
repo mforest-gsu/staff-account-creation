@@ -3,13 +3,15 @@
 # Set current dir to the app dir and load .env files
 source $(dirname ${BASH_SOURCE[0]})/init || exit 1
 
+IPSIS_ZIP="gsustaf_${DATE}_${TIME}"
+
 # Clean up old uploads
 ./bin/cleanup || exit 1
 
 # Create zip file
-./bin/create-zip || exit 1
+./bin/create-zip ${IPSIS_ZIP} || exit 1
 
 # Upload zip file
-./bin/upload-zip || exit 1
+./bin/upload-zip ${IPSIS_ZIP} || exit 1
 
 exit 0
