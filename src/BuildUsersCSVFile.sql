@@ -1,7 +1,9 @@
 SET term OFF
 SET feed OFF
 SET markup csv ON
+SET heading OFF
 SPOOL &1
+PROMPT  "type","action","username","org_defined_id","first_name","last_name","password","is_active","role_name","email","relationships","pref_first_name","pref_last_name","sort_last_name","pronouns"
 SELECT
   'user' AS "type",
   'UPDATE' AS "action",
