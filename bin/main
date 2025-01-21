@@ -28,8 +28,8 @@ sqlplus \
 zip -j ./var/${IPSIS_ZIP}.zip ./var/${IPSIS_ZIP}/* || exit 11
 
 # Upload zip file to MoveIt
-# echo "put ./var/${IPSIS_ZIP}.zip \"${SFTP_PATH}\"" \
-#   | sftp -b - ${SFTP_HOST} > /dev/null 2>&1 \
-#   || exit 1
+echo "put ./var/${IPSIS_ZIP}.zip \"${SFTP_PATH}\"" \
+  | sftp -b - ${SFTP_HOST} > /dev/null 2>&1 \
+  || exit 1
 
 exit 0
